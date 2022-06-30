@@ -4,6 +4,9 @@ import Axios from 'axios';
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button';
 import Card from './components/Card'
+import Container from '@mui/material/Container';
+import Header from './components/Header'
+import Svg from './components/Svg'
 
 const headers = {
   'X-RapidAPI-Key': '9d752015b3msh447c523c9c6318bp16283fjsn3fb61e8b3e4d',
@@ -17,37 +20,55 @@ useEffect(() => {
   getBibleProps();
 }, [])
 
- // bible api 
+ 
  const getBibleProps = () =>  {
-  const options = {
-    method: 'GET',
-    url: 'https://ajith-holy-bible.p.rapidapi.com/GetVerses',
+  //BIBLE API GET REQUEST 
+  const config = {
     params: {Book: 'Matthew', chapter: '6', VerseFrom: '25', VerseTo: '30'},
     headers: {
       'X-RapidAPI-Key': '9d752015b3msh447c523c9c6318bp16283fjsn3fb61e8b3e4d',
       'X-RapidAPI-Host': 'ajith-holy-bible.p.rapidapi.com'
     }
   };
-  
-  Axios.request(options)
-  .then(function (response) {
-   const displayBibleVerse = response.data;
-   //update state
-   getBibleVerse(displayBibleVerse)})
+  const configTwo = {
+    params: {Book: 'Matthew', chapter: '1', VerseFrom: '12', VerseTo: '20'},
+    headers: {
+      'X-RapidAPI-Key': '9d752015b3msh447c523c9c6318bp16283fjsn3fb61e8b3e4d',
+      'X-RapidAPI-Host': 'ajith-holy-bible.p.rapidapi.com'
+    }
+  };
 
-  .catch(function (error) {
-    console.error(error);
-  });
+  const getVerseOne = () => {
+    return Axios.get('https://ajith-holy-bible.p.rapidapi.com/GetVerses', config)
+  }
+  const getVerseTwo = () => {
+   return Axios.get('https://ajith-holy-bible.p.rapidapi.com/GetVerses', configTwo)
+    
+  }
+
+  // ADDING API FUNCS TO EMPTY ARRAY
+ Promise.all([getVerseOne(), getVerseTwo()])
+ .then(function(response){
+  const arr = []
+  const one = response[0].data
+  const two = response[1].data
+  arr.push([one, two])
+  console.log(arr)
+  
+  getBibleVerse(arr)
+ })
 }
 
 
   return (
     <div className="App">
       <header className="App-header">
-      <h1 style={{ fontFamily: 'Poppins' }}> God is working even when we can't see it </h1>
-
-        <Button onClick={getBibleProps}>Click</Button>
+      <Header/>
+        {/* <Button onClick={getBibleProps}>Click</Button> */}
+        <Container>
         <Card verse={bibleVerse}></Card>
+        </Container>
+
       </header>
     </div>
   );

@@ -16,6 +16,10 @@ app.get('/', (req, res) => {
 res.send({message:"test"})
 })
 
+app.get('https://ajith-holy-bible.p.rapidapi.com/GetVerses', (req, res)=>{
+  res.json(req.query)
+})
+
 const headers = {
     'X-RapidAPI-Key': '9d752015b3msh447c523c9c6318bp16283fjsn3fb61e8b3e4d',
     'X-RapidAPI-Host': 'ajith-holy-bible.p.rapidapi.com',
