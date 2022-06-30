@@ -31,7 +31,7 @@ useEffect(() => {
     }
   };
   const configTwo = {
-    params: {Book: 'Matthew', chapter: '1', VerseFrom: '12', VerseTo: '20'},
+    params: {Book: 'John', chapter: '1', VerseFrom: '12', VerseTo: '20'},
     headers: {
       'X-RapidAPI-Key': '9d752015b3msh447c523c9c6318bp16283fjsn3fb61e8b3e4d',
       'X-RapidAPI-Host': 'ajith-holy-bible.p.rapidapi.com'
@@ -52,8 +52,8 @@ useEffect(() => {
   const arr = []
   const one = response[0].data
   const two = response[1].data
-  arr.push([one, two])
-  console.log(arr)
+  arr.push(one, two)
+  // console.log(arr)
   
   getBibleVerse(arr)
  })

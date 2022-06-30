@@ -20,7 +20,7 @@ const bull = (
 );
 
 export default function BasicCard(props) {
-console.log(props.verse[0])
+console.log(props.verse)
 const Card = styled.section`
 box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
@@ -38,7 +38,7 @@ background: #82C0CC;
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
         </Typography>
         <Typography variant="h5" component="div">
-         {props.verse.Book} {props.verse.Chapter}
+         {props.verse[0].Book} {props.verse.Chapter}
 
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
