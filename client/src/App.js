@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import Axios from 'axios';
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button';
-import Card from './components/Card'
+import CardD from './components/Card'
 import Container from '@mui/material/Container';
 import Header from './components/Header'
 import Svg from './components/Svg'
@@ -14,7 +14,7 @@ const headers = {
 };
 
 function App() {
-const [bibleVerse, getBibleVerse] = useState("");
+const [bibleVerse, getBibleVerse] = useState("state:");
 
 useEffect(() => {
   getBibleProps();
@@ -31,34 +31,47 @@ useEffect(() => {
     }
   };
   const configTwo = {
-    params: {Book: 'John', chapter: '1', VerseFrom: '12', VerseTo: '20'},
+    params: {Book: 'Jeremiah', chapter: '29', VerseFrom: '11', VerseTo: '20'},
     headers: {
       'X-RapidAPI-Key': '9d752015b3msh447c523c9c6318bp16283fjsn3fb61e8b3e4d',
       'X-RapidAPI-Host': 'ajith-holy-bible.p.rapidapi.com'
     }
   };
 
-  const getVerseOne = () => {
+  // CALL BIBLE VERSES
+  const matthew = () => {
     return Axios.get('https://ajith-holy-bible.p.rapidapi.com/GetVerses', config)
   }
-  const getVerseTwo = () => {
+  const jeremiah = () => {
    return Axios.get('https://ajith-holy-bible.p.rapidapi.com/GetVerses', configTwo)
     
   }
+  const jeremiahh = () => {
+    return Axios.get('https://ajith-holy-bible.p.rapidapi.com/GetVerses', configTwo)
+     
+   }
 
   // ADDING API FUNCS TO EMPTY ARRAY
- Promise.all([getVerseOne(), getVerseTwo()])
+ Promise.all([matthew(), jeremiah(), jeremiahh()])
  .then(function(response){
-  const arr = []
-  const one = response[0].data
-  const two = response[1].data
-  arr.push(one, two)
-  // console.log(arr)
+  const chaptersToDisplay = []
+  const matth = response[0].data
+  const jerem = response[1].data
+  const je = response[2].data
+
+  chaptersToDisplay.push(matth, jerem, je)
+  // console.log(chaptersToDisplay)
   
-  getBibleVerse(arr)
+  getBibleVerse(chaptersToDisplay)
+  console.log(bibleVerse)
  })
 }
 
+console.log(bibleVerse)
+
+const theVerse = (bibleVerse) => {
+
+}
 
   return (
     <div className="App">
@@ -66,7 +79,11 @@ useEffect(() => {
       <Header/>
         {/* <Button onClick={getBibleProps}>Click</Button> */}
         <Container>
-        <Card verse={bibleVerse}></Card>
+    {bibleVerse.map((bv) => (
+        <CardD verse={bv}>
+        </CardD>
+        ))} 
+       
         </Container>
 
       </header>
